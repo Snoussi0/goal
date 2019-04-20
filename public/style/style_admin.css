@@ -1,0 +1,140 @@
+@font-face {
+    font-family: 'rubikregular';
+    src: url(../font/rubik/rubik-regular-webfont.woff2) format('woff2'),
+         url(../font/rubik/rubik-regular-webfont.woff) format('woff');
+    font-weight: normal;
+    font-style: normal;
+  
+  }
+  
+  
+  @font-face {
+    font-family: 'poppinsregular';
+    src: url(../font/poppins/poppins-regular-webfont.woff2) format('woff2'),
+         url(../font/poppins/poppins-regular-webfont.woff) format('woff');
+    font-weight: normal;
+    font-style: normal;
+  
+  }
+  
+  
+  @font-face {
+  font-family: 'HelveticaNeue-Thin';
+  src: url(../font/HelveticaNeue/HelveticaNeue-Thin.otf) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  
+  }
+  
+  
+  
+  body
+  {
+      display: flex;
+      justify-content: flex-start;
+      margin: 0px;
+      padding: 0px;
+  }
+  nav
+  {
+      width: 25vw;
+      height: 100vh;
+      text-align: center;    
+      background-color: rgb(9,31,45);
+      position: fixed;
+      top: 0;
+  }
+  
+  section
+  {
+      width: 75vw;
+      height: 100vh;
+      background-color: white;
+            
+      margin-left: 25vw;
+  }
+  
+  .logo
+  {
+      height:  170px;
+  }
+  #liste_menu
+  {   
+      padding: 0;
+      width: 100%;
+      list-style:none;
+      color: white;
+	  font-family:  rubikregular;
+      height:  60vh;
+  }
+  #liste_menu>li
+  {
+      width: 100%;    
+      height: 50px;
+      padding: 15px 0 5px 0;
+      font-size: 30px;
+  }
+  
+  
+  #liste_menu>li:hover
+  {
+      
+     background-color: rgb(17, 54, 77);
+     cursor: pointer;
+  }
+  
+  #liste_menu a
+  {
+      color: white;
+      text-decoration: none;
+  }
+  
+  .first
+  {
+      background-color: rgb(26, 31, 37);
+      color: white;
+  }
+  .paire
+  {
+      background-color: rgb(235, 235, 235);
+      color: rgb(98, 101, 131);
+  }
+  .impaire
+  {
+      color: rgb(98, 101, 131);
+      
+  }
+  table
+  { 
+      
+      text-align: center;
+      margin: 50px auto;
+      font-size: 20px;
+      font-family: 'rubikregular';
+      
+      border-collapse: collapse;
+      border-style: solid;
+      border-width: medium;
+      border-color: rgb(155, 163, 172);
+  }
+  td  
+  {
+      padding: 8px 10px;
+      
+      border-collapse: collapse;
+      border-style: solid;
+      border-width: medium;
+      border-color: rgb(155, 163, 172);
+  }
+
+  h1
+{
+  text-align: center;
+  font-family: HelveticaNeue-Thin;
+  color: rgb(136, 145, 151);
+  font-size: 200%;
+}
+td>a>img
+{
+    width: 30px;
+}
