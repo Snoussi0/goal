@@ -1,0 +1,146 @@
+{% extends 'espace_agence_base.html.twig' %}
+{% block title %} Espace Agence- Modifier Votre Adresse{% endblock %}
+
+{% block body_notification %}
+
+{% if app.request.query.get("notification")  is not null %} onload="setTimeout(cacherDiv,3000);" {% endif %}
+
+{% endblock %}
+
+
+{% block section %}
+    <article>
+
+
+
+<h2>Modifier Votre Adresse</h2>
+
+
+
+{% if app.request.query.get("notification")  is not null  %} 
+
+
+<div id="notification">
+                <div class="rectangle {{app.request.query.get("notification") }}">
+                    <div class="notification-text">
+                        <img src="/images/icone/{{app.request.query.get("notification") }}.svg" id="icone_notification">
+                        <span>{{app.request.query.get("contenu") }}</span>
+                    </div>
+                </div>
+            </div>
+       
+
+ {% endif %}
+
+    <form method="post"  action="{{path('espace_agence_changer_adresse')}}">
+              
+					<div class="floating-form">
+
+                
+
+
+
+          
+                
+
+
+
+
+                <div class="floating-label">      
+                
+                    <input class="floating-input" type="text" placeholder=" " name="latitude" id="latitude" readonly>
+                
+                    <span class="highlight"></span>
+                
+                    <label>Latitude</label>
+                
+                </div>
+                 <div class="floating-label">      
+                
+                    <input class="floating-input" type="text" placeholder=" " name="longitude" id="longitude" readonly>
+                
+                    <span class="highlight"></span>
+                
+                    <label>Longitude</label>
+                
+                </div>
+            
+       
+          
+
+
+                
+                
+
+
+
+             
+
+                    <div id="map"></div>
+    
+    <script>
+
+      function initMap() {
+        var myLatLng = {lat: 35.8253900, lng: 10.6369900};
+        
+          
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 14,
+          center: myLatLng
+        });
+
+        var marker = new google.maps.Marker({
+          position: myLatLng,
+          map: map,
+          title: 'Hello World!',
+          draggable: true
+        });
+        let lat = document.getElementById("latitude");
+        lat.value= marker.getPosition().lat();
+          
+        let lng = document.getElementById("longitude");
+          lng.value = marker.getPosition().lat();
+
+        google.maps.event.addListener(marker,'dragend',function()
+        {
+         
+          lat.value=marker.getPosition().lat();
+          
+          lng.value =marker.getPosition().lng();
+        }
+        )
+
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAfHpHjRr_UhAZP2dlHBxJ73RCpMyjRxV4&callback=initMap">
+    </script>
+
+
+          
+
+                
+
+
+
+                                
+                    <center>
+                        <div>
+                            <button type="submit" class="connection_bouton">Enregistrer </button>
+                        </div>
+                    </center>
+                    
+          </div>
+        </form>
+
+        
+
+    <div id='main'>
+
+
+
+    </article>
+
+
+{% endblock %}

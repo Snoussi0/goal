@@ -43,10 +43,6 @@ class Client
      */
     private $sexe;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $bloque;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Utilisateur", mappedBy="client", cascade={"persist", "remove"})
@@ -55,10 +51,7 @@ class Client
 
 
 
-    public function __construct()
-    {
-      $this->bloque = false;
-    }
+    
 
     public function getId(): ?int
     {
@@ -127,17 +120,7 @@ class Client
         return $this;
     }
 
-    public function getBloque(): ?bool
-    {
-        return $this->bloque;
-    }
-
-    public function setBloque(bool $bloque): self
-    {
-        $this->bloque = $bloque;
-
-        return $this;
-    }
+    
 
     
     public function getUtilisateur(): ?Utilisateur
