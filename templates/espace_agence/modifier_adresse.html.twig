@@ -81,6 +81,7 @@
     <script>
 
       function initMap() {
+      
         var myLatLng = {lat: 35.8253900, lng: 10.6369900};
         
           
@@ -93,7 +94,7 @@
         var marker = new google.maps.Marker({
           position: myLatLng,
           map: map,
-          title: 'Hello World!',
+          title: 'Deplacer le marqueur vers votre adresse',
           draggable: true
         });
         let lat = document.getElementById("latitude");

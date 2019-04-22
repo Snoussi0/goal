@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -40,6 +42,16 @@ class Agence
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $longitude;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Terrain", mappedBy="agence", orphanRemoval=true)
+     */
+    private $terrains;
+
+    public function __construct()
+    {
+        $this->terrains = new ArrayCollection();
+    }
 
 
 
@@ -110,6 +122,37 @@ class Agence
     public function setLongitude(?string $longitude): self
     {
         $this->longitude = $longitude;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Terrain[]
+     */
+    public function getTerrains(): Collection
+    {
+        return $this->terrains;
+    }
+
+    public function addTerrain(Terrain $terrain): self
+    {
+        if (!$this->terrains->contains($terrain)) {
+            $this->terrains[] = $terrain;
+            $terrain->setAgence($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTerrain(Terrain $terrain): self
+    {
+        if ($this->terrains->contains($terrain)) {
+            $this->terrains->removeElement($terrain);
+            // set the owning side to null (unless already changed)
+            if ($terrain->getAgence() === $this) {
+                $terrain->setAgence(null);
+            }
+        }
 
         return $this;
     }

@@ -26,35 +26,93 @@
             
             </div>
 
-            <div id="conteneur_liste">
+           
 
-                <ul id="liste_menu">
-                
-                            
-                    <a href="{{path('espace_public_nos_tournois')}}" class="lien_item_menu"> 
-                        <li class="item_menu">  <img src="/images/icone/trophy.svg" onmouseover="this.src='/images/icone/trophy_gold.svg'" onmouseout="this.src='/images/icone/trophy.svg';"><span> Nos Tournois</span> </li> 
-                    </a>
 
-                    <a href="{{path('espace_public_nos_agences')}}" class="lien_item_menu"> 
-                        <li class="item_menu"> <img src="/images/icone/placeholder.svg" onmouseover="this.src='/images/icone/placeholder_blue.svg'" onmouseout="this.src='/images/icone/placeholder.svg';"> <span>Nos Agences </span></li>
+        <div id="conteneur_liste">
+   
+       
+     
+
+
+    
+
+ <ul>
+    <li>
+      <a href="{{path('espace_public_connexion')}}" > 
+                       <img src="/images/icone/sign-in.svg"><span>Connexion </span> 
                     </a> 
+    
+     </li>
 
-                    <a href="{{path('espace_public_nos_terrains')}}" class="lien_item_menu"> 
-                        <li class="item_menu"> <img src="/images/icone/soccer-field.svg" onmouseover="this.src='/images/icone/soccer-field_green.svg'" onmouseout="this.src='/images/icone/soccer-field.svg';"> <span> Nos Terrain  </span></li>
-                    </a>  
+    </ul>
+    <ul>
+        <li>
 
-                    <a href="{{path('inscription')}}" class="lien_item_menu"> 
-                        <li class="item_menu"> <img src="/images/icone/note.svg" > <span> Inscription  </span></li>
+         <a href="{{path('inscription')}}"> 
+                         <img src="/images/icone/note.svg" > <span> Inscription  </span>
                     </a> 
+        <ul>
+        <li>
 
-                    <a href="{{path('espace_public_connexion')}}" class="lien_item_menu"> 
-                        <li class="item_menu"> <img src="/images/icone/sign-in.svg" onmouseover="this.src='/images/icone/sign-in_blue.svg'" onmouseout="this.src='/images/icone/sign-in.svg';"><span>Connexion </span> </li>   
+         <a href="{{path('espace_public_inscription_client')}}"> 
+                         <img src="/images/icone/client.svg" > <span> Comme Client  </span>
                     </a> 
-                    
-                </ul>
+    
 
-            
-            </div>
+      </li>
+        <li>
+
+         <a href="{{path('espace_public_inscription_agence')}}"> 
+                         <img src="/images/icone/placeholder.svg" > <span> Comme Agence  </span>
+                    </a> 
+    
+
+      </li>  
+      </ul>  
+
+      </li>
+
+    </ul>
+
+    
+    <ul>
+    <li>
+
+        <a href="{{path('espace_public_nos_terrains')}}">
+          <img src="/images/icone/soccer-field.svg"> <span> Nos Terrain  </span>
+          </a>
+
+      </li>
+
+    </ul>
+
+
+      <ul>
+      <li>
+
+        <a href="{{path('espace_public_nos_agences')}}">
+       <img src="/images/icone/placeholder.svg"> <span>Nos Agences </span>
+         </a>
+
+      </li>
+
+    </ul>
+
+     <ul>
+
+      <li>
+
+        <a href="{{path('espace_public_nos_tournois')}}">
+         <img src="/images/icone/trophy.svg" ><span> Nos Tournois</span>
+        </a>
+
+      </li>
+
+       </ul>
+      
+  </div>
+         
 
             
             <div id="conteneur_recherche">
