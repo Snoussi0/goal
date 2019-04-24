@@ -19,7 +19,7 @@ class EspaceAdminController extends AbstractController
     }
 
      /**
-     * @Route("/envoyer", name="envoyer")
+     * @Route("/espace_admin/envoyer", name="envoyer")
      */
     public function envoyer(Request $request,\Swift_Mailer $mailer)
     {

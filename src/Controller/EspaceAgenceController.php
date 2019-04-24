@@ -32,6 +32,32 @@ class EspaceAgenceController extends AbstractController
     }
 
 
+
+      /**
+     * @Route("/espace_agence/modifier_terrain", name="espace_agence_modifier_terrain")
+     */
+    public function modifier_terrain()
+    {
+        return $this->render('espace_agence/modifier_terrain.html.twig', [
+            'controller_name' => 'EspaceAgenceController',
+        ]);
+    }
+
+
+
+      /**
+     * @Route("/espace_agence/ajouter_terrain", name="espace_agence_ajouter_terrain")
+     */
+    public function ajouter_terrain()
+    {
+        return $this->render('espace_agence/ajouter_terrain.html.twig', [
+            'controller_name' => 'EspaceAgenceController',
+        ]);
+    }
+
+    
+
+
     
     /**
      * @Route("/espace_agence/changer_adresse", name="espace_agence_changer_adresse")

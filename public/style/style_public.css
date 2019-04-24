@@ -270,7 +270,8 @@ div.bloc
   width:30%;
   display:inline-block;
   vertical-align:middle;
-  text-align:left; /* on rétablit l'alignement du texte */ }
+  text-align:left; /* on rétablit l'alignement du texte */
+ }
 
 .connection_api
 {
