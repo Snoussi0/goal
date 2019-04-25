@@ -47,6 +47,11 @@ class Terrain
      */
     private $agence;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $photo;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -120,6 +125,18 @@ class Terrain
     public function setAgence(?agence $agence): self
     {
         $this->agence = $agence;
+
+        return $this;
+    }
+
+    public function getPhoto(): ?string
+    {
+        return $this->photo;
+    }
+
+    public function setPhoto(string $photo): self
+    {
+        $this->photo = $photo;
 
         return $this;
     }

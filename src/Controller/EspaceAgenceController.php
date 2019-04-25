@@ -10,6 +10,8 @@ use App\Entity\Terrain;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\File;
 
 class EspaceAgenceController extends AbstractController
 {
@@ -76,8 +78,27 @@ class EspaceAgenceController extends AbstractController
                 ->setLongueur($request->request->get('longueur'))
                 ->setCategorie($request->request->get('categorie'))
                 ->setPrix($request->request->get('prix'))
+                ->setPhoto($request->request->get('photo'))
                 ->setAgence($this->getUser()->getAgence());
-                 
+
+                $file = $terrain->getPhoto();
+
+                $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
+    
+                // Move the file to the directory where brochures are stored
+                try {
+                    $file->move(
+                        $this->getParameter('/images/photo/'),
+                        $fileName
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+    
+                // updates the 'brochure' property to store the PDF file name
+                // instead of its contents
+                $terrain->setPhoto($fileName);
+         
             
         $manager->persist($terrain);
         $manager->flush();  
