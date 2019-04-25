@@ -6,8 +6,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Agence;
 use App\Entity\Utilisateur;
+use App\Entity\Terrain;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class EspaceAgenceController extends AbstractController
 {
@@ -36,10 +38,16 @@ class EspaceAgenceController extends AbstractController
       /**
      * @Route("/espace_agence/modifier_terrain", name="espace_agence_modifier_terrain")
      */
-    public function modifier_terrain()
+    public function modifier_terrain(Request $request)
     {
+        
+        $agence=$this->getUser()->getAgence();
+       
+        $repository = $this->getDoctrine()->getRepository(Terrain::class);
+
+        $terrain = $repository-> findBy(['agence' => $agence]);
         return $this->render('espace_agence/modifier_terrain.html.twig', [
-            'controller_name' => 'EspaceAgenceController',
+            'terrains' => $terrain,
         ]);
     }
 
@@ -54,6 +62,38 @@ class EspaceAgenceController extends AbstractController
             'controller_name' => 'EspaceAgenceController',
         ]);
     }
+
+     /**
+     * @Route("/espace_agence/ajouter_terrains", name="espace_agence_ajouter_terrains")
+     */
+    public function ajouter_terrains(Request $request,ObjectManager $manager)
+    {
+
+       
+        $terrain=new Terrain();
+        $terrain->setNom($request->request->get('nom'))
+                ->setLargeur($request->request->get('largeur'))
+                ->setLongueur($request->request->get('longueur'))
+                ->setCategorie($request->request->get('categorie'))
+                ->setPrix($request->request->get('prix'))
+                ->setAgence($this->getUser()->getAgence());
+                 
+            
+        $manager->persist($terrain);
+        $manager->flush();  
+            
+            
+            
+            $contenu="ajout de terrain avec success";
+            
+            
+        
+            return $this->redirect($this->generateUrl('espace_agence_ajouter_terrain',['notification' => 'success','contenu'=>$contenu ]));
+       
+
+        
+    }
+
 
     
 

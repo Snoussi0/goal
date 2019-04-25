@@ -24,7 +24,7 @@ class Agence
     private $matriculeFiscale;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255,unique=true)
      */
     private $nom;
 
@@ -155,6 +155,12 @@ class Agence
         }
 
         return $this;
+    }
+
+
+    public function __toString()
+    {
+        return $this->nom;
     }
 
 }

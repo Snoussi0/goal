@@ -1055,16 +1055,19 @@ text-decoration: none;
  }
 
  .stade
- {
-   width: 250px;
-   height: 370px;
-   padding: 4px;
-   border-width:0.5px;
-   border-style:solid;
-   border-color:rgb(221, 221, 221);
-   border-radius: 4px;  
-    position: relative;
- }
+{
+ display: inline-block;
+ margin: auto 0.5vw;
+ width: 250px;
+ height: 370px;
+ padding: 4px;
+ border-width:0.5px;
+ border-style:solid;
+ border-color:rgb(221, 221, 221);
+ border-radius: 4px;  
+ position: relative;
+
+}
 
  .stade  img
  {
@@ -1099,11 +1102,11 @@ text-decoration: none;
  }
  .stades
  {
-      display: flex;
-      justify-content: space-around;
-      width: 80vw;
-      margin: auto;
-  
+     display: block;
+     justify-content: space-around;
+     width: 71vw;
+     margin: 1% auto;
+ 
  }
  .stade a
  {

@@ -29,7 +29,7 @@ security:
                 remember_me_parameter: _remember_me
             logout:
                 path: logout
-                target: accueil
+                target: espace_public_connexion
 
             # activate different ways to authenticate
 

@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use App\Entity\Agence;
 use App\Entity\Utilisateur;
 use App\Entity\Client;
+use App\Entity\Terrain;
 
 class EspacePublicController extends AbstractController
 {   
@@ -39,7 +40,13 @@ class EspacePublicController extends AbstractController
      */
     public function nos_terrains()
     {
-        return $this->render('espace_public/nos_terrains.html.twig');
+        $repository = $this->getDoctrine()->getRepository(Terrain::class);
+        $terrain = $repository->findAll();
+        
+        
+        return $this->render('espace_public/nos_terrains.html.twig', [
+            'terrains' => $terrain,
+        ]);
     }
 
 
@@ -250,7 +257,7 @@ class EspacePublicController extends AbstractController
             {
                 if($user->getRole()=="ROLE_ADMIN")
                 {
-                    return $this->redirectToRoute('espace_admin');
+                    return $this->redirectToRoute('easyadmin');
                 } 
                 else
                 {

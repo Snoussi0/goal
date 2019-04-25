@@ -34,7 +34,7 @@
   
       <div  class="bloc">
            
-        <form method="post"  action="#">
+        <form method="post"  action="{{path('espace_agence_ajouter_terrains')}}">
               
 			
           <div class="floating-form">
@@ -79,7 +79,7 @@
 
                 <div class="floating-label">  
                 
-                    <select class="floating-select" onclick="this.setAttribute('value', this.value);" value="">
+                    <select class="floating-select" onclick="this.setAttribute('value', this.value);" value="" name="categorie">
 
                         <option value=""></option>
 
@@ -105,7 +105,7 @@
 
                  <div class="floating-label">      
                 
-                    <input class="floating-input" type="number" placeholder=" " name="longueur">
+                    <input class="floating-input" type="number" placeholder=" " name="prix">
                 
                     <span class="highlight"></span>
                 

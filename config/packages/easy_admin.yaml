@@ -1,6 +1,25 @@
 easy_admin:
+    
+    site_name: '<img src="/images/photo/goaladmin.png" style="width:120px">'
+    
+    design:
+      menu:
+        - { entity: 'Utilisateur', icon: 'user' }
+        - { entity: 'Agence', icon: 'building' }
+        - { entity: 'Client', icon: 'user' }
+        - { entity: 'Terrain', icon: 'user' }
+    
     entities:
-        # List the entity class name you want to manage
-        - App\Entity\Utilisateur
-        - App\Entity\Agence
-        - App\Entity\Client
+        Utilisateur:
+            class: App\Entity\Utilisateur
+           
+        Agence:
+            class: App\Entity\Agence
+     
+        Client:
+            class: App\Entity\Client
+
+        
+        Terrain:
+            class: App\Entity\Terrain
+        

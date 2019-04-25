@@ -24,7 +24,7 @@ class Utilisateur implements UserInterface
     private $email;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255,unique=true)
      */
     private $motPasse;
 
@@ -135,6 +135,9 @@ class Utilisateur implements UserInterface
 
     }
 
-
+    public function __toString()
+    {
+        return $this->email;
+    }
     
 }

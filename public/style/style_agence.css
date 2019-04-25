@@ -358,68 +358,68 @@ width:100%;
 
 /****  floating-Lable style start ****/
 .floating-label { 
-position:relative; 
-margin-bottom:40px;
-margin-right: 5px; 
+  position:relative; 
+  margin-bottom:40px;
+  margin-right: 5px; 
 }
 .floating-input , .floating-select {
-font-size:14px;
-padding:4px 4px;
-display:block;
-width:100%;
-height:30px;
-background-color: transparent;
-border:none;
-border-bottom:1.5px solid #757575;
+  font-size:14px;
+  padding:4px 4px;
+  display:block;
+  width:100%;
+  height:30px;
+  background-color: transparent;
+  border:none;
+  border-bottom:1.5px solid #757575;
 }
 
 .floating-input:focus , .floating-select:focus {
-   outline:none;
-   border-bottom:2px solid #5264AE; 
+     outline:none;
+     border-bottom:2px solid #5264AE; 
 }
 
 label {
-font-family: HelveticaNeue-Thin;
-font-size: 16px;
-color:#999; 
-font-weight:normal;
-position:absolute;
-pointer-events:none;
-left:5px;
-top:5px;
-transition:0.2s ease all; 
--moz-transition:0.2s ease all; 
--webkit-transition:0.2s ease all;
+  font-family: HelveticaNeue-Thin;
+  font-size: 16px;
+  color:#999; 
+  font-weight:normal;
+  position:absolute;
+  pointer-events:none;
+  left:5px;
+  top:5px;
+  transition:0.2s ease all; 
+  -moz-transition:0.2s ease all; 
+  -webkit-transition:0.2s ease all;
 }
 
 .floating-input:focus ~ label, .floating-input:not(:placeholder-shown) ~ label {
-top:-18px;
-font-size:14px;
-color:#5264AE;
+  top:-18px;
+  font-size:14px;
+  color:#5264AE;
 }
 
 .floating-select:focus ~ label , .floating-select:not([value=""]):valid ~ label {
-top:-18px;
-font-size:14px;
-color:#5264AE;
+  top:-18px;
+  font-size:14px;
+  color:#5264AE;
 }
 
 /* active state */
 .floating-input:focus ~ .bar:before, .floating-input:focus ~ .bar:after, .floating-select:focus ~ .bar:before, .floating-select:focus ~ .bar:after {
-width:50%;
+  width:50%;
 }
 
 *, *:before, *:after {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 .floating-textarea {
- min-height: 30px;
- max-height: 260px; 
- overflow:hidden;
-overflow-x: hidden; 
+   min-height: 30px;
+   max-height: 260px; 
+   overflow:hidden;
+  overflow-x: hidden; 
 }
 
 /* highlighter */
@@ -985,11 +985,11 @@ opacity: 1;
 }
 
 .popup {
-margin: 3vh auto;
+margin: 0 auto;
 padding:  0px;
 background: #fff;
 width: 35%;
-height: 80vh;
+height: 90vh;
 position: relative;
 transition: all 0s ease-in-out;
 }
@@ -1006,7 +1006,7 @@ font-family: Tahoma, Arial, sans-serif;
 
     width: 100%;
     text-align: right;
-    background-color:  rgb(9,31,45);
+    background-color:  rgb(20, 66, 95);
     color: white;
     font-size: 25px;
     font-weight:bold;
@@ -1069,6 +1069,8 @@ table
 
 .stade
 {
+ display: inline-block;
+ margin: auto 0.5vw;
  width: 250px;
  height: 370px;
  padding: 4px;
@@ -1076,7 +1078,8 @@ table
  border-style:solid;
  border-color:rgb(221, 221, 221);
  border-radius: 4px;  
-  position: relative;
+ position: relative;
+
 }
 
 .stade  img
@@ -1112,10 +1115,10 @@ font-family: 'roboto';
 }
 .stades
 {
-    display: flex;
+    display: block;
     justify-content: space-around;
-    width: 80vw;
-    margin: auto;
+    width: 70vw;
+    margin: 1% auto;
 
 }
 .stade a
