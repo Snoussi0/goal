@@ -4,14 +4,18 @@ easy_admin:
     
     design:
       menu:
-        - { entity: 'Utilisateur', icon: 'user' }
+        - { entity: 'Utilisateur', icon: 'users' }
         - { entity: 'Agence', icon: 'building' }
         - { entity: 'Client', icon: 'user' }
-        - { entity: 'Terrain', icon: 'user' }
+        - { entity: 'Terrain', icon: 'fa fa-futbol' }
+        - { entity: 'Reservation', icon: 'calendar' }
     
     entities:
         Utilisateur:
             class: App\Entity\Utilisateur
+        
+        Reservation:
+            class: App\Entity\Reservation
            
         Agence:
             class: App\Entity\Agence
