@@ -38,7 +38,7 @@ class EspacePublicController extends AbstractController
     /**
      * @Route("/nos_terrains", name="espace_public_nos_terrains")
      */
-    public function nos_terrains()
+    public function nos_terrains(Request $request)
     {
         $repository = $this->getDoctrine()->getRepository(Terrain::class);
         $terrain = $repository->findAll();
@@ -57,7 +57,14 @@ class EspacePublicController extends AbstractController
      */
     public function nos_agences()
     {
-        return $this->render('espace_public/nos_agences.html.twig');
+
+        $repository = $this->getDoctrine()->getRepository(Agence::class);
+        $agence = $repository->findAll();
+        
+        
+        return $this->render('espace_public/nos_agences.html.twig', [
+            'agences' => $agence,
+        ]);
     }
 
 
@@ -305,6 +312,9 @@ class EspacePublicController extends AbstractController
             $agence=new Agence();
             $agence->setMatriculeFiscale($request->request->get('matricule_fiscale'));
             $agence->setNom($request->request->get('nom_agence'));
+            
+            $agence->setPhoto("agence_hover.jpg");
+            $agence->setNumTel($request->request->get('num_tel'));
            
 
             $notification="wait";
@@ -344,4 +354,39 @@ class EspacePublicController extends AbstractController
         return $this->render('espace_public/inscription_agence.html.twig',array('notification' => $notification,'contenu'=>$contenu ));
 
     }
+
+
+
+
+
+    
+    /**
+     * @Route("/espace_public_votre_profile", name="espace_public_votre_profile")
+     */
+    public function votre_profile()
+    {
+        $role = $this->getUser()->getRole();
+        if($role == "ROLE_CLIENT")
+        {
+            return $this->redirectToRoute('espace_client');
+        }
+        else
+        {
+            if($role == "ROLE_AGENCE")
+            {
+                return $this->redirectToRoute('espace_agence');
+            }
+            else
+            {
+                if($role == "ROLE_ADMIN")
+                {
+                    return $this->redirectToRoute('easyadmin');
+                }
+
+            }
+        }
+    }
+
+
+    
 }

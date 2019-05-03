@@ -173,14 +173,25 @@
             <a href="#stade{{terrain.id}}">&times;</a>
           </div>
           <div class="content">
-            <center>
-                <a href="/images/photo/{{terrain.photo}}"><img src="/images/photo/{{terrain.photo}}" class="modalphoto"></a>
-          </center>
+          
   
          <div  class="bloc">
            
         <form method="post"  action="#">
               
+
+
+                <center>
+
+              <div class="input-file">
+													<img id="file_upload" src="/images/photo/{{terrain.photo}}" alt="your image" class="upload-img" />
+													<div class="input-file-upload">
+														<span class="upload-label">Choisir Une Image</span>
+														<input type='file' onchange="readURL(this);" name="photo" accept="image/*" required />
+													</div>
+												</div>
+			
+                </center>
 			
           <div class="floating-form">
 

@@ -36,7 +36,97 @@ class EspaceAgenceController extends AbstractController
     }
 
 
+    /**
+     * @Route("/espace_agence/modifier_num_tel", name="espace_agence_modifier_num_tel")
+     */
+    public function modifier_num_tel()
+    {
+        return $this->render('espace_agence/modifier_num_tel.html.twig', [
+            'controller_name' => 'EspaceAgenceController',
+        ]);
+    }
 
+          /**
+     * @Route("/espace_agence/changer_num_tel", name="espace_agence_changer_num_tel")
+     */
+    public function changer_num_tel(Request $request)
+    {
+        
+        $agence=$this->getUser()->getAgence();
+       
+
+
+              
+        $agence->setNumTel($request->request->get('num_tel'));
+         
+            
+        
+        
+        $this->getDoctrine()->getManager()->flush();   
+            
+            
+            
+            $contenu="photo chager avec success";
+            
+            
+        
+       
+            return $this->redirect($this->generateUrl('espace_agence_modifier_num_tel',['notification' => 'success','contenu'=>'modification terminée avec succès' ]));
+
+        
+    }
+    
+
+
+     /**
+     * @Route("/espace_agence/modifier_photo", name="espace_agence_modifier_photo")
+     */
+    public function modifier_photo()
+    {
+        return $this->render('espace_agence/modifier_photo.html.twig', [
+            'controller_name' => 'EspaceAgenceController',
+        ]);
+    }
+
+          /**
+     * @Route("/espace_agence/changer_photo", name="espace_agence_changer_photo")
+     */
+    public function changer_photo(Request $request)
+    {
+        
+        $agence=$this->getUser()->getAgence();
+       
+
+
+                $file = $request->files->get('photo');
+                
+                $fileName = md5(uniqid()).'.'.$file->guessExtension();
+                $file->move($this->getParameter('upload_directory'),$fileName);
+                $agence->setPhoto($fileName);
+         
+            
+        
+        
+        $this->getDoctrine()->getManager()->flush();   
+            
+            
+            
+            $contenu="photo chager avec success";
+            
+            
+        
+       
+            return $this->redirect($this->generateUrl('espace_agence_modifier_photo',['notification' => 'success','contenu'=>'modification terminée avec succès' ]));
+          
+
+        
+
+
+
+        
+    }
+    
+    
       /**
      * @Route("/espace_agence/modifier_terrain", name="espace_agence_modifier_terrain")
      */
@@ -81,22 +171,10 @@ class EspaceAgenceController extends AbstractController
                 ->setPhoto($request->request->get('photo'))
                 ->setAgence($this->getUser()->getAgence());
 
-                $file = $terrain->getPhoto();
-
-                $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
-    
-                // Move the file to the directory where brochures are stored
-                try {
-                    $file->move(
-                        $this->getParameter('/images/photo/'),
-                        $fileName
-                    );
-                } catch (FileException $e) {
-                    // ... handle exception if something happens during file upload
-                }
-    
-                // updates the 'brochure' property to store the PDF file name
-                // instead of its contents
+                $file = $request->files->get('photo');
+                
+                $fileName = md5(uniqid()).'.'.$file->guessExtension();
+                $file->move($this->getParameter('upload_directory'),$fileName);
                 $terrain->setPhoto($fileName);
          
             

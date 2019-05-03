@@ -48,6 +48,16 @@ class Agence
      */
     private $terrains;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $photo;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $num_tel;
+
     public function __construct()
     {
         $this->terrains = new ArrayCollection();
@@ -161,6 +171,30 @@ class Agence
     public function __toString()
     {
         return $this->nom;
+    }
+
+    public function getPhoto(): ?string
+    {
+        return $this->photo;
+    }
+
+    public function setPhoto(string $photo): self
+    {
+        $this->photo = $photo;
+
+        return $this;
+    }
+
+    public function getNumTel(): ?string
+    {
+        return $this->num_tel;
+    }
+
+    public function setNumTel(?string $num_tel): self
+    {
+        $this->num_tel = $num_tel;
+
+        return $this;
     }
 
 }

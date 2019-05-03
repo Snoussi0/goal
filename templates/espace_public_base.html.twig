@@ -40,16 +40,58 @@
 
     
 
+
+
+
+
+
+    {% if app.user != "" %}
+    
+
+
+         <ul>
+
+      <li>
+
+        <a href="{{path('logout')}}">
+        <img src="/images/icone/sign-out.svg"><span> Déconnexion </span>
+        </a>
+        
+
+      </li>
+
+    </ul>
+
+   <ul>
+
+      <li>
+
+        <a href="{{path('espace_public_votre_profile')}}">
+        <img src="/images/icone/user.svg"><span>Votre Profile </span>
+        </a>
+        
+
+      </li>
+
+    </ul>
+
+
+    {% else %}
+
+
+        
  <ul>
     <li>
       <a href="{{path('espace_public_connexion')}}" > 
-                       <img src="/images/icone/sign-in.svg"><span>Connexion </span> 
+                       <img src="/images/icone/sign-in.svg"><span>  Connexion </span> 
                     </a> 
     
      </li>
 
     </ul>
-    <ul>
+
+
+        <ul>
         <li>
 
          <a href="{{path('inscription')}}"> 
@@ -77,6 +119,13 @@
       </li>
 
     </ul>
+
+        
+    {% endif %}
+
+
+
+
 
     
     <ul>
@@ -181,7 +230,7 @@
         </div>
 
         <div id="Copyright">
-           <h4>&copy; 2019 Copyright: Snoussi Mohamed</h4>
+           <h4>&copy; 2019 Copyright:Snoussi Mohamed</h4>
         </div>
 
     </footer>

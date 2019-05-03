@@ -29,7 +29,7 @@
 
       <li>
 
-        <a href="#">
+        <a href="{{path('logout')}}">
         <img src="/images/icone/sign-out.svg"><span> Déconnexion </span>
         </a>
         
@@ -55,11 +55,17 @@
                 </a>
               </li>
 
+           
 
             <li>
                 <a href="#"><img src="/images/icone/pencil.svg" ><span> Nom D'agence </span>
                 </a>
               </li>
+
+                <li>
+                <a href="{{ path('espace_agence_modifier_photo')}}"><img src="/images/icone/user.svg" ><span> Photo D'agence </span>
+                </a>
+            </li>
               
            <li>
               <a href="{{path('espace_agence_modifier_adresse')}}"><img src="/images/icone/adresse.svg" ><span> Adresse D'agence</span>
@@ -67,10 +73,11 @@
             </li>
               
             <li>
-                <a href="#"><img src="/images/icone/phone.svg" ><span> Numéro Téléphone </span>
+                <a href="{{path('espace_agence_modifier_num_tel')}}"><img src="/images/icone/phone.svg" ><span> Numéro Téléphone </span>
                 </a>
               </li>
 
+           
               
           </ul>
   

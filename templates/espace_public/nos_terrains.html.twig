@@ -161,7 +161,7 @@
 
 <article>
 
-{{dump(terrains)}}
+
 
 {% set j = 0 %}
 
@@ -179,7 +179,7 @@
           </div>
           <div class="content">
             <center>
-                <a href="/images/photo/test.jpg"><img src="/images/photo/test.jpg" class="modalphoto"></a>
+                <a href="/images/photo/{{terrain.photo}}"><img src="/images/photo/{{terrain.photo}}" class="modalphoto"></a>
           </center>
   
           <table>
@@ -228,7 +228,7 @@
           <div class="stade">
             
               <a href="#{{terrain.id}}" id="stade{{terrain.id}}">
-                  <img src="/images/photo/test.jpg">
+                  <img src="/images/photo/{{terrain.photo}}">
                   <span class="note_stade"><span class="star">&#9733;</span>4.3</span>
                   
                   <span class="titre_stade">{{terrain.nom}}</span>

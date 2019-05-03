@@ -34,11 +34,20 @@
   
       <div  class="bloc">
            
-        <form method="post"  action="{{path('espace_agence_ajouter_terrains')}}">
+        <form method="post"  action="{{path('espace_agence_ajouter_terrains')}}" enctype="multipart/form-data">
               
 
-              <input type="file" name="photo" accept="image/png, image/jpeg">
+                <center>
+
+              <div class="input-file">
+													<img id="file_upload" src="http://placehold.jp/170x170.png" alt="your image" class="upload-img" />
+													<div class="input-file-upload">
+														<span class="upload-label">Choisir Une Image</span>
+														<input type='file' onchange="readURL(this);" name="photo" accept="image/*" required />
+													</div>
+												</div>
 			
+                </center>
           <div class="floating-form">
 
                 <div class="floating-label">      
@@ -57,7 +66,7 @@
           
                 <div class="floating-label">      
                 
-                    <input class="floating-input" type="number" placeholder=" " name="largeur">
+                    <input class="floating-input" type="number" placeholder=" " name="largeur" required>
                 
                     <span class="highlight"></span>
                 
@@ -69,7 +78,7 @@
 
                  <div class="floating-label">      
                 
-                    <input class="floating-input" type="number" placeholder=" " name="longueur">
+                    <input class="floating-input" type="number" placeholder=" " name="longueur" required>
                 
                     <span class="highlight"></span>
                 
@@ -81,7 +90,7 @@
 
                 <div class="floating-label">  
                 
-                    <select class="floating-select" onclick="this.setAttribute('value', this.value);" value="" name="categorie">
+                    <select class="floating-select" onclick="this.setAttribute('value', this.value);" value="" name="categorie" required>
 
                         <option value=""></option>
 
@@ -107,7 +116,7 @@
 
                  <div class="floating-label">      
                 
-                    <input class="floating-input" type="number" placeholder=" " name="prix">
+                    <input class="floating-input" type="number" placeholder=" " name="prix" required>
                 
                     <span class="highlight"></span>
                 

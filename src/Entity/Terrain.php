@@ -42,7 +42,7 @@ class Terrain
     private $prix;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\agence", inversedBy="terrains")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Agence", inversedBy="terrains")
      * @ORM\JoinColumn(nullable=false)
      */
     private $agence;
@@ -51,6 +51,11 @@ class Terrain
      * @ORM\Column(type="string", length=255)
      */
     private $photo;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Reservation", mappedBy="Terrain", cascade={"persist", "remove"})
+     */
+    private $reservation;
 
     public function getId(): ?int
     {
@@ -129,14 +134,31 @@ class Terrain
         return $this;
     }
 
-    public function getPhoto(): ?string
+    public function getPhoto()
     {
         return $this->photo;
     }
 
-    public function setPhoto(string $photo): self
+    public function setPhoto($photo)
     {
         $this->photo = $photo;
+
+        return $this;
+    }
+
+    public function getReservation(): ?Reservation
+    {
+        return $this->reservation;
+    }
+
+    public function setReservation(Reservation $reservation): self
+    {
+        $this->reservation = $reservation;
+
+        // set the owning side of the relation if necessary
+        if ($this !== $reservation->getTerrain()) {
+            $reservation->setTerrain($this);
+        }
 
         return $this;
     }
