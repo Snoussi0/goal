@@ -147,31 +147,6 @@ class EspacePublicController extends AbstractController
 
     
     /**
-     * @Route("/test1", name="test1")
-     */
-    public function test1()
-    {
-          
-    
-            return $this->render('espace_public/test1.html.twig');
-        
-    }
-
-    /**
-     * @Route("/test", name="test")
-     */
-    public function test()
-    {
-          
-    
-            return $this->render('espace_public/test.html.twig');
-        
-    }
-
-
-
-    
-    /**
      * @Route("/ajouter_client", name="ajouter_client")
      */
     public function ajouter_client(Request $request,ObjectManager $manager,UserPasswordEncoderInterface $passwordEncoder)
