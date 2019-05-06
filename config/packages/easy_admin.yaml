@@ -8,15 +8,11 @@ easy_admin:
         - { entity: 'Agence', icon: 'building' }
         - { entity: 'Client', icon: 'user' }
         - { entity: 'Terrain', icon: 'fa fa-futbol' }
-        - { entity: 'Reservation', icon: 'calendar' }
     
     entities:
         Utilisateur:
             class: App\Entity\Utilisateur
         
-        Reservation:
-            class: App\Entity\Reservation
-           
         Agence:
             class: App\Entity\Agence
      

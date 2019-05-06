@@ -426,14 +426,7 @@ class EspacePublicController extends AbstractController
     }
 
  
-    /**
-     * @Route("/test", name="test")
-     */
-    public function test()
-    {
-        return $this->render('espace_public/test.html.twig');
- 
-    }
+   
 
 
 
