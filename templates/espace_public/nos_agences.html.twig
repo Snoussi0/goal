@@ -77,34 +77,35 @@
 
 </article>
 <article>
-<form>
+<form method='post' action="{{path('espace_public_nos_agences')}}">
 <div class="rechercheterrain">
+
+
+
+
+
+                  <button type="submit" class="bouton_recherche"><img src="/images/icone/loupe_inv.svg"></button>
   
                   <div class="floating-label">      
                 
-                    <input class="floating-input" type="text" placeholder=" ">
+                    <input class="floating-input" type="text" placeholder=" " name="nom">
                 
                     <span class="highlight"></span>
                 
-                    <label>Text</label>
+                    <label>Nom Agence</label>
                 
                 </div>
 
                 <div class="floating-label">  
                 
-                    <select class="floating-select" onclick="this.setAttribute('value', this.value);" value="">
+                    <select class="floating-select" onclick="this.setAttribute('value', this.value);" value="" name="trier">
                 
                         <option value=""></option>
                 
-                        <option value="1">Alabama</option>
+                        
+                        <option value="distance">Distance</option>
                 
-                        <option value="2">Boston</option>
-                
-                        <option value="3">Ohaio</option>
-                
-                        <option value="4">New York</option>
-                
-                        <option value="5">Washington</option>
+                        <option value="note">Note</option>
                 
                
                     </select>
@@ -114,44 +115,15 @@
                
                     
                 
-                    <label>Select</label>
+                    <label>Trier</label>
                 
                 
                 </div>
 
 
-                <div class="floating-label">  
-                
-                    <select class="floating-select" onclick="this.setAttribute('value', this.value);" value="">
-                
-                        <option value=""></option>
-                
-                        <option value="1">Alabama</option>
-                
-                        <option value="2">Boston</option>
-                
-                        <option value="3">Ohaio</option>
-                
-                        <option value="4">New York</option>
-                
-                        <option value="5">Washington</option>
-                
-               
-                    </select>
-                
-               
-                    <span class="highlight"></span>
-               
-                    
-                
-                    <label>Select</label>
-                
-                
-                </div>
 
 
 </div>
-
 </form>
 
 </article>

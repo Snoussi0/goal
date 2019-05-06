@@ -799,6 +799,22 @@ h3
     
   }
 
+  .rechercheterrain button
+  {
+    background-color: white;
+    border: none;
+    height: 30px;
+    width: 30px;
+    margin-right: 3%;
+    cursor: pointer;
+  }
+
+.rechercheterrain img
+  {
+    height: 30px;
+    width:30px;
+  }
+  
   /*inscription_client */
   .radio
   {

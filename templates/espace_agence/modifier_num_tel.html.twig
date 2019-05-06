@@ -3,7 +3,7 @@
 
 {% block body_notification %}
 
-{% if app.request.query.get("notification")  is not null %} onload="setTimeout(cacherDiv,3000);" {% endif %}
+{% if  notification is defined %} onload="setTimeout(cacherDiv,3000);" {% endif %}
 
 {% endblock %}
 
@@ -17,14 +17,14 @@
 
 
 
-{% if app.request.query.get("notification")  is not null  %} 
+{% if  notification is defined  %} 
 
 
 <div id="notification">
-                <div class="rectangle {{app.request.query.get("notification") }}">
+                <div class="rectangle {{notification }}">
                     <div class="notification-text">
-                        <img src="/images/icone/{{app.request.query.get("notification") }}.svg" id="icone_notification">
-                        <span>{{app.request.query.get("contenu") }}</span>
+                        <img src="/images/icone/{{notification }}.svg" id="icone_notification">
+                        <span>{{contenu }}</span>
                     </div>
                 </div>
             </div>
@@ -34,7 +34,7 @@
   
       <div  class="bloc">
  
- <form method="post"  action="{{path('espace_agence_changer_num_tel')}}">
+ <form method="post"  action="{{path('espace_agence_modifier_num_tel')}}">
               
 
                <div class="floating-label">      

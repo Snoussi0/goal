@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use App\Entity\Agence;
 use App\Entity\Utilisateur;
@@ -40,8 +41,53 @@ class EspacePublicController extends AbstractController
      */
     public function nos_terrains(Request $request)
     {
-        $repository = $this->getDoctrine()->getRepository(Terrain::class);
-        $terrain = $repository->findAll();
+        
+
+
+
+
+
+
+        if ($request->isMethod('post')) {
+            
+            $entityManager = $this->getDoctrine()->getManager();
+            $nom=$request->request->get('nom');
+            $categorie=$request->request->get('categorie');
+            $req='';
+            if($nom != NULL &&  $categorie!= NULL)
+            {
+            $req=" SELECT p FROM App\Entity\Terrain p WHERE  p.nom LIKE :nom AND p.categorie LIKE :categorie ";
+            $query = $entityManager->createQuery($req)->setParameters(array('nom'=> '%'.$nom.'%', 'categorie' => $categorie));
+            }
+            elseif($nom != NULL &&  $categorie== NULL)
+            {
+                $req=" SELECT p FROM App\Entity\Terrain p WHERE  p.nom LIKE :nom ";
+                $query = $entityManager->createQuery($req)->setParameters(array('nom'=> '%'.$nom.'%'));
+            }
+            
+            elseif($nom == NULL &&  $categorie!= NULL)
+            {
+                $req=" SELECT p FROM App\Entity\Terrain p WHERE  p.categorie LIKE :categorie ";
+                $query = $entityManager->createQuery($req)->setParameters(array('categorie' => $categorie));
+            }
+            else
+            {
+                
+                $req=" SELECT p FROM App\Entity\Terrain p  ";
+                $query = $entityManager->createQuery($req);
+            }
+
+
+
+            $terrain= $query->execute();
+        }
+        else
+        {
+            $repository = $this->getDoctrine()->getRepository(Terrain::class);
+            $terrain = $repository->findAll();
+        }
+
+
         
         
         return $this->render('espace_public/nos_terrains.html.twig', [
@@ -55,11 +101,40 @@ class EspacePublicController extends AbstractController
      /**
      * @Route("/nos_agences", name="espace_public_nos_agences")
      */
-    public function nos_agences()
+    public function nos_agences(Request $request)
     {
 
+        
+        if ($request->isMethod('post')) {
+            
+            $entityManager = $this->getDoctrine()->getManager();
+            $nom=$request->request->get('nom');
+            $req='';
+            if($nom != NULL )
+            {
+                $req=" SELECT p FROM App\Entity\Agence p WHERE  p.nom LIKE :nom ";
+                $query = $entityManager->createQuery($req)->setParameters(array('nom'=> '%'.$nom.'%'));
+            }
+            else
+            {
+                
+                $req=" SELECT p FROM App\Entity\Agence p  ";
+                $query = $entityManager->createQuery($req);
+            }
+
+
+
+            $agence= $query->execute();
+        }
+        else
+        {
+            
         $repository = $this->getDoctrine()->getRepository(Agence::class);
         $agence = $repository->findAll();
+        }
+
+
+
         
         
         return $this->render('espace_public/nos_agences.html.twig', [
@@ -94,28 +169,143 @@ class EspacePublicController extends AbstractController
       /**
      * @Route("/inscription/inscription_client", name="espace_public_inscription_client")
      */
-    public function inscription_client()
-    {
-        return $this->render('espace_public/inscription_client.html.twig');
+    public function inscription_client(Request $request,ObjectManager $manager,UserPasswordEncoderInterface $passwordEncoder)
+    {   
+        if($request->isMethod('post'))
+        {
+             
+            $repository=$this->getDoctrine()->getRepository(Utilisateur::class);
+            $utilisateur1=$repository->findOneBy(['email' => ($request->request->get('email'))]);
+            if($utilisateur1==null)
+            {
+                $utilisateur=new Utilisateur();
+                $utilisateur->setEmail($request->request->get('email'))
+                            ->setMotPasse($request->request->get('mot_passe'))
+                            ->setRole('ROLE_CLIENT');
+                    
+                $client=new Client();
+                
+                $client->setPrenom($request->request->get('prenom'))
+                        ->setNom($request->request->get('nom'))
+                        ->setSexe($request->request->get('sexe'))
+                        ->setDateNaissance(new \DateTime($request->request->get('date_naissance')));
+
+                if($client->getSexe()=="homme")
+                {
+                    $client->setPhoto("/images/icone/boy.svg");
+                }
+                else
+                {
+                    $client->setPhoto("/images/icone/girl.svg");
+                }
+
+                $utilisateur->setMotPasse($passwordEncoder->encodePassword($utilisateur,$utilisateur->getMotPasse() )  );
+
+                $utilisateur->setClient($client);
+                $manager->persist($client);
+                $manager->persist($utilisateur);
+                $manager->flush();  
+                
+                
+                
+                $notification="success";
+                $contenu="ajout avec success";
+                
+                
+            }
+            else
+            {
+                
+
+                $notification="danger";
+                $contenu="Email deja existe";         
+                
+                
+
+            }
+
+
+            return $this->render('espace_public/inscription_client.html.twig',array('notification' => $notification,'contenu'=>$contenu ));
+        
+        }
+        else
+        {
+            return $this->render('espace_public/inscription_client.html.twig');
+        }
     }
 
 
         /**
-     * @Route("/inscription/inscription_agencec", name="espace_public_inscription_agence")
+     * @Route("/inscription/inscription_agence", name="espace_public_inscription_agence")
      */
-    public function inscription_agence()
+    public function inscription_agence(Request $request,ObjectManager $manager,UserPasswordEncoderInterface $passwordEncoder)
     {
-        return $this->render('espace_public/inscription_agence.html.twig');
-    }
-
-
-
-
-
-
+        if($request->isMethod('post'))
+        {
+            $repository=$this->getDoctrine()->getRepository(Utilisateur::class);
+            $utilisateur1=$repository->findOneBy(['email' => ($request->request->get('email'))]);
     
-
-
+            $repositorya=$this->getDoctrine()->getRepository(Agence::class);
+            $agence1=$repositorya->findOneBy(['matriculeFiscale' => ($request->request->get('matricule_fiscale'))]);
+    
+            if($utilisateur1==null and $agence1==null)
+            {
+                $utilisateur=new Utilisateur();
+                $utilisateur->setEmail($request->request->get('email'))
+                            ->setMotPasse($request->request->get('mot_passe'))
+                            ->setRole('ROLE_AGENCE');
+    
+                $agence=new Agence();
+                $agence->setMatriculeFiscale($request->request->get('matricule_fiscale'));
+                $agence->setNom($request->request->get('nom_agence'));
+                
+                $agence->setPhoto("agence_hover.jpg");
+                $agence->setNumTel($request->request->get('num_tel'));
+               
+    
+                $notification="wait";
+                $contenu="Vous recevez un <a href='https://mail.google.com' target='_blank'>mail</a> lorsque les informations saisies sont v�rifi�es";
+    
+                
+                $utilisateur->setMotPasse($passwordEncoder->encodePassword($utilisateur,$utilisateur->getMotPasse())  );
+    
+                $utilisateur->setAgence($agence);
+    
+                $manager->persist($agence);
+                $manager->persist($utilisateur);
+                
+                $manager->flush();          
+                
+            }
+            else
+            {   
+                
+                $notification="danger";
+    
+                if($utilisateur1<>null)
+                {
+                    $contenu="Email deja existe";         
+    
+                }
+                else
+                {
+                    $contenu="N° de matricule fiscale deja existe";  
+                }
+            
+                
+    
+                
+            }
+            
+            return $this->render('espace_public/inscription_agence.html.twig',array('notification' => $notification,'contenu'=>$contenu ));
+    
+        }
+        else
+        {
+            return $this->render('espace_public/inscription_agence.html.twig');
+        }
+        
+    }
 
 
 
@@ -141,71 +331,6 @@ class EspacePublicController extends AbstractController
     
   
 
-
-
-
-
-    
-    /**
-     * @Route("/ajouter_client", name="ajouter_client")
-     */
-    public function ajouter_client(Request $request,ObjectManager $manager,UserPasswordEncoderInterface $passwordEncoder)
-    {   
-
-        
-        $repository=$this->getDoctrine()->getRepository(Utilisateur::class);
-        $utilisateur1=$repository->findOneBy(['email' => ($request->request->get('email'))]);
-        if($utilisateur1==null)
-        {
-            $utilisateur=new Utilisateur();
-            $utilisateur->setEmail($request->request->get('email'))
-                        ->setMotPasse($request->request->get('mot_passe'))
-                        ->setRole('ROLE_CLIENT');
-                 
-            $client=new Client();
-            
-            $client->setPrenom($request->request->get('prenom'))
-                    ->setNom($request->request->get('nom'))
-                    ->setSexe($request->request->get('sexe'))
-                    ->setDateNaissance(new \DateTime($request->request->get('date_naissance')));
-
-            if($client->getSexe()=="homme")
-            {
-                $client->setPhoto("/images/icone/boy.svg");
-            }
-            else
-            {
-                $client->setPhoto("/images/icone/girl.svg");
-            }
-            $utilisateur->setMotPasse($passwordEncoder->encodePassword($utilisateur,$utilisateur->getMotPasse())  );
-
-            $utilisateur->setClient($client);
-            $manager->persist($client);
-            $manager->persist($utilisateur);
-            $manager->flush();  
-            
-            
-            
-            $notification="success";
-            $contenu="ajout avec success";
-            
-            
-        }
-        else
-        {
-            
-
-            $notification="danger";
-            $contenu="Email deja existe";         
-            
-            
-
-        }
-
-
-        return $this->render('espace_public/inscription_client.html.twig',array('notification' => $notification,'contenu'=>$contenu ));
-     
-    }
 
 
     /**
@@ -266,69 +391,7 @@ class EspacePublicController extends AbstractController
 
 
     
-    /**
-     * @Route("/ajouter_agence", name="ajouter_agence")
-     */
-    public function ajouter_agence(Request $request,ObjectManager $manager,UserPasswordEncoderInterface $passwordEncoder)
-    {
-        $repository=$this->getDoctrine()->getRepository(Utilisateur::class);
-        $utilisateur1=$repository->findOneBy(['email' => ($request->request->get('email'))]);
-
-        $repositorya=$this->getDoctrine()->getRepository(Agence::class);
-        $agence1=$repositorya->findOneBy(['matriculeFiscale' => ($request->request->get('matricule_fiscale'))]);
-
-        if($utilisateur1==null and $agence1==null)
-        {
-            $utilisateur=new Utilisateur();
-            $utilisateur->setEmail($request->request->get('email'))
-                        ->setMotPasse($request->request->get('mot_passe'))
-                        ->setRole('ROLE_AGENCE');
-
-            $agence=new Agence();
-            $agence->setMatriculeFiscale($request->request->get('matricule_fiscale'));
-            $agence->setNom($request->request->get('nom_agence'));
-            
-            $agence->setPhoto("agence_hover.jpg");
-            $agence->setNumTel($request->request->get('num_tel'));
-           
-
-            $notification="wait";
-            $contenu="Vous recevez un <a href='https://mail.google.com' target='_blank'>mail</a> lorsque les informations saisies sont vérifiées";
-
-            
-            $utilisateur->setMotPasse($passwordEncoder->encodePassword($utilisateur,$utilisateur->getMotPasse())  );
-
-            $utilisateur->setAgence($agence);
-
-            $manager->persist($agence);
-            $manager->persist($utilisateur);
-            
-            $manager->flush();          
-            
-        }
-        else
-        {   
-            
-            $notification="danger";
-
-            if($utilisateur1<>null)
-            {
-                $contenu="Email deja existe";         
-
-            }
-            else
-            {
-                $contenu="N° de matricule fiscale deja existe";  
-            }
-        
-            
-
-            
-        }
-        
-        return $this->render('espace_public/inscription_agence.html.twig',array('notification' => $notification,'contenu'=>$contenu ));
-
-    }
+  
 
 
 
@@ -361,6 +424,20 @@ class EspacePublicController extends AbstractController
             }
         }
     }
+
+ 
+    /**
+     * @Route("/test", name="test")
+     */
+    public function test()
+    {
+        return $this->render('espace_public/test.html.twig');
+ 
+    }
+
+
+
+   
 
 
     
