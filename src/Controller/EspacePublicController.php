@@ -192,11 +192,11 @@ class EspacePublicController extends AbstractController
 
                 if($client->getSexe()=="homme")
                 {
-                    $client->setPhoto("/images/icone/boy.svg");
+                    $client->setPhoto("boy.svg");
                 }
                 else
                 {
-                    $client->setPhoto("/images/icone/girl.svg");
+                    $client->setPhoto("girl.svg");
                 }
 
                 $utilisateur->setMotPasse($passwordEncoder->encodePassword($utilisateur,$utilisateur->getMotPasse() )  );

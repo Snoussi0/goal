@@ -168,11 +168,12 @@ width: 20%;
 
 .searchbar
 {
-float: right;
-height: 60px;
-background-color:white;
-border-radius: 30px;
-padding: 10px;
+    float: right;
+    height: 40px;
+    background-color: white;
+    border-radius: 40px;
+    margin-top: 10px;
+    margin-right: 5px;
 }
 
 .search_input
@@ -482,6 +483,9 @@ height:  100%;
 .connection_bouton
 {
 margin-top: 10%;
+margin-bottom: 10%;
+background-color: white;
+
 background-color: white;
 
 font-family: poppinsregular;

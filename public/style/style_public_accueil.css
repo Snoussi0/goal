@@ -170,11 +170,12 @@ body,section, html {
 
 .searchbar
 {
-	float: right;
-	height: 40px;
-	background-color:white;
-	border-radius: 30px;
-	padding: 10px;
+    float: right;
+    height: 40px;
+    background-color: white;
+    border-radius: 40px;
+    margin-top: 10px;
+    margin-right: 5px;
 }
 
 .search_input
