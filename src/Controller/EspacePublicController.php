@@ -426,9 +426,22 @@ class EspacePublicController extends AbstractController
     }
 
  
-   
+    /**
+     * @Route("/test", name="test")
+     */
+    public function test(Request $request,ObjectManager $manager,UserPasswordEncoderInterface $passwordEncoder)
+    {
+    $utilisateur=new Utilisateur();
+    $utilisateur->setEmail('admin')
+                ->setMotPasse('00000000')
+                ->setRole('ROLE_ADMIN');
+                $utilisateur->setMotPasse($passwordEncoder->encodePassword($utilisateur,$utilisateur->getMotPasse() )  );
 
-
+                $manager->persist($utilisateur);
+                $manager->flush(); 
+    dump($utilisateur);
+    die();
+    }
 
    
 
