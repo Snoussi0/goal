@@ -49,10 +49,7 @@ class Client
      */
     private $utilisateur;
 
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Reservation", mappedBy="Client", cascade={"persist", "remove"})
-     */
-    private $reservation;
+  
 
 
 
@@ -152,20 +149,6 @@ class Client
         return $this->prenom;
     }
 
-    public function getReservation(): ?Reservation
-    {
-        return $this->reservation;
-    }
-
-    public function setReservation(Reservation $reservation): self
-    {
-        $this->reservation = $reservation;
-
-        // set the owning side of the relation if necessary
-        if ($this !== $reservation->getClient()) {
-            $reservation->setClient($this);
-        }
-
-        return $this;
-    }
+  
+    
 }

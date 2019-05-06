@@ -52,10 +52,7 @@ class Terrain
      */
     private $photo;
 
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Reservation", mappedBy="Terrain", cascade={"persist", "remove"})
-     */
-    private $reservation;
+    
 
     public function getId(): ?int
     {
@@ -146,20 +143,5 @@ class Terrain
         return $this;
     }
 
-    public function getReservation(): ?Reservation
-    {
-        return $this->reservation;
-    }
-
-    public function setReservation(Reservation $reservation): self
-    {
-        $this->reservation = $reservation;
-
-        // set the owning side of the relation if necessary
-        if ($this !== $reservation->getTerrain()) {
-            $reservation->setTerrain($this);
-        }
-
-        return $this;
-    }
+  
 }
