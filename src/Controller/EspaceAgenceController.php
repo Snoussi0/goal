@@ -7,6 +7,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Agence;
 use App\Entity\Utilisateur;
 use App\Entity\Terrain;
+use App\Entity\Reservation;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -222,8 +223,56 @@ class EspaceAgenceController extends AbstractController
 
     
 
+      /**
+     * @Route("/espace_agence/mes_reservation", name="espace_agence_mes_reservation")
+     */
+    public function mes_reservation(Request $request)
+    {
+            $entityManager = $this->getDoctrine()->getManager();
+            $agence = $this->getUser()->getAgence();
+        
+            
+            $req=" SELECT r FROM App\Entity\Reservation r, App\Entity\Terrain t, App\Entity\Agence a where t.agence= :agence AND r.terrain=t";
+            $query = $entityManager->createQuery($req)->setParameters(array('agence'=>$agence));
+                
+
+            $reservations= $query->execute();
+
+            return $this->render('espace_agence/mes_reservation.html.twig', [
+                'reservations' => $reservations,
+            ]);
+    }
+    
+         /**
+     * @Route("/espace_agence/accept_reservation/{id}", name="espace_agence_accept_reservation")
+     */
+    public function accept_reservation($id,Request $request)
+    {
+            $repository = $this->getDoctrine()->getRepository(Reservation::class);
+            $reservation = $repository->find($id);
+
+            $reservation->setStatus('accepted');
+            $this->getDoctrine()->getManager()->flush(); 
+            
+                    
+            return $this->redirectToRoute('espace_agence_mes_reservation');
+    }
 
     
+         /**
+     * @Route("/espace_agence/refuse_reservation/{id}", name="espace_agence_refuse_reservation")
+     */
+    public function refuse_reservation($id,Request $request)
+    {
+            $repository = $this->getDoctrine()->getRepository(Reservation::class);
+            $reservation = $repository->find($id);
+            
+            $reservation->setStatus('refused');
+            $this->getDoctrine()->getManager()->flush(); 
+            
+                    
+            return $this->redirectToRoute('espace_agence_mes_reservation');
+    }
 
 
 }
