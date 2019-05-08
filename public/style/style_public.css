@@ -1150,8 +1150,22 @@ text-decoration: none;
   color: white;
   text-decoration: none;
   }
-  .star
-  {
-    font-size: 25px;
-    color: #FFD700;
-  }
+ 
+  
+
+
+
+
+
+  /*---------------------------rating system ---------------------------*/
+.stars
+{
+  color: #f2b01e;
+  font-size: 25px;
+  text-align: center;
+}
+.star
+{
+  font-size: 25px;
+  color: #FFD700;
+}

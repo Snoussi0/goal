@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -59,9 +60,15 @@ class Terrain
      */
     private $reservations;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Note", mappedBy="terrain", orphanRemoval=true)
+     */
+    private $notes;
+
     public function __construct()
     {
         $this->reservations = new ArrayCollection();
+        $this->notes = new ArrayCollection();
     }
 
     
@@ -184,6 +191,60 @@ class Terrain
         }
 
         return $this;
+    }
+
+    /**
+     * @return Collection|Note[]
+     */
+    public function getNotes(): Collection
+    {
+        return $this->notes;
+    }
+
+    public function addNote(Note $note): self
+    {
+        if (!$this->notes->contains($note)) {
+            $this->notes[] = $note;
+            $note->setTerrain($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNote(Note $note): self
+    {
+        if ($this->notes->contains($note)) {
+            $this->notes->removeElement($note);
+            // set the owning side to null (unless already changed)
+            if ($note->getTerrain() === $this) {
+                $note->setTerrain(null);
+            }
+        }
+
+        return $this;
+    }
+
+
+    public function getNoteStade(): ?float
+    {
+        
+        $notesStade=$this->notes;
+        $i=0;
+        $j=0;
+        foreach ($notesStade as $value){
+         $j=$j+1;
+         $i=$i+$value;   
+        }
+        if($j==0)
+        {
+            return 0;
+
+        }
+        else
+        {
+            return $i/$j;
+
+        }
     }
 
   

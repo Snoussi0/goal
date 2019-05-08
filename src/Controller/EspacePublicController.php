@@ -5,10 +5,6 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\RadioType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -18,6 +14,9 @@ use App\Entity\Agence;
 use App\Entity\Utilisateur;
 use App\Entity\Client;
 use App\Entity\Terrain;
+use App\Entity\Note;
+use App\Repository\NoteRepository;
+use Symfony\Flex\Response;
 
 class EspacePublicController extends AbstractController
 {   
@@ -423,6 +422,38 @@ class EspacePublicController extends AbstractController
 
             }
         }
+    }
+
+
+    /**
+     * @Route("/espace_public/{noteint}/{terrain}", name="espace_public_note")
+     */
+
+    public function note(Terrain $terrain,int $noteint,ObjectManager $manager,NoteRepository $noteRepository,Request $request) 
+    {
+        $user=$this->getUser()->getClient();
+        $note=$noteRepository->findOneBy(['client'=>$user,'terrain'=>$terrain]);
+        if($note != NULL)
+        {
+            $note->setNote($noteint);
+            $manager->flush();
+            
+        return $this->json(['code'=>200,'message'=>'modification avec succees'],200);
+        }
+        else
+        {
+            $notes=new Note();
+            $notes->setClient($user)
+                  ->setTerrain($terrain)
+                  ->setNote($noteint);
+            $manager->persist($notes);
+            $manager->flush();
+            
+        return $this->json(['code'=>200,'message'=>'ajout avec success'],200);
+
+        }
+
+
     }
 
  

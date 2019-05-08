@@ -207,6 +207,18 @@
             <button  class="connection_bouton">Réservation</button>
             </a>
           </div></center>
+
+         <div>
+
+
+          <span class="stars"><a href="{{path('espace_public_note',{'terrain': terrain.id, 'noteint': 1})}}" class="lienjs">&starf;</a></span>
+          <span class="stars"><a href="{{path('espace_public_note',{'terrain': terrain.id, 'noteint': 2})}}" class="lienjs">&starf;</a></span>
+          <span class="stars"><a href="{{path('espace_public_note',{'terrain': terrain.id, 'noteint': 3})}}" class="lienjs">&starf;</a></span>
+          <span class="stars"><a href="{{path('espace_public_note',{'terrain': terrain.id, 'noteint': 4})}}" class="lienjs">&starf;</a></span>
+          <span class="stars"><a href="{{path('espace_public_note',{'terrain': terrain.id, 'noteint': 5})}}" class="lienjs">&starf;</a></span>
+         </div>
+
+          
   
           </div>
         </div>
@@ -232,10 +244,25 @@
 
 
           <div class="stade">
-            
+              {% set sumratings = 0 %}
+              {% set i = 0 %}
+              {% for rating in terrain.notes %}
+                {% set sumratings = sumratings + rating.note %}  
+                {% set i = i + 1 %}
+              {% endfor %}
+               
+
               <a href="#{{terrain.id}}" id="stade{{terrain.id}}">
                   <img src="/images/photo/{{terrain.photo}}">
-                  <span class="note_stade"><span class="star">&#9733;</span>4.3</span>
+                  <span class="note_stade"><span class="star">&#9733;</span>
+                  {% if i == 0 %}
+                  --
+                  {% else %}
+                  
+                  {{  sumratings / terrain.notes|length }}
+                  {% endif %}
+
+                </span>
                   
                   <span class="titre_stade">{{terrain.nom}}</span>
                   </a>
@@ -275,4 +302,30 @@
 
 
 {% endblock %}
+
+{% block javascript %}
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+
+
+  function onClickStar(event)
+  {
+    event.preventDefault();
+    const url=this.href;
+    axios.get(url).then(function(response){console.log(response)});
+  }
+
+  document.querySelectorAll( 'a.lienjs').forEach(function(link){
+    link.addEventListener('click',onClickStar);
+  })
+</script>
+
+
+
+
+
+
+{% endblock %}
+
+
 
