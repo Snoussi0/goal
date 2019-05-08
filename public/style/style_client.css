@@ -1067,9 +1067,13 @@
    margin: auto;
    width: 80%;
    font-family: 'HelveticaNeue-Thin';
-   font-size: 14px;
+   font-size: 20px;
   }
-  .paire ,.impaire
+  table img
+  {
+    height: 30px;
+  }
+  .paire ,.impaire,.titre_tab
   {
    height: 30px;
   }
@@ -1077,6 +1081,11 @@
   {
    background-color: #CCC;
   }
+  .titre_tab
+  {
+   background-color: rgb(115, 77, 124);
+  }
+  
   .champ
   {
    margin-right: 36px;
@@ -1084,6 +1093,14 @@
    font-size: 18px;
    font-weight: bold;
   }
+  .champs
+  {
+   margin-right: 10px;
+   margin-left: 10px; 
+   font-size: 18px;
+   font-weight: bold;
+  }
+  
   
   .stade
   {

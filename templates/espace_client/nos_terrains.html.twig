@@ -180,7 +180,12 @@
             <center>
                 <a href="/images/photo/{{terrain.photo}}"><img src="/images/photo/{{terrain.photo}}" class="modalphoto"></a>
           </center>
-  
+          {% set sumratings = 0 %}
+          {% set i = 0 %}
+          {% for rating in terrain.notes %}
+            {% set sumratings = sumratings + rating.note %}  
+            {% set i = i + 1 %}
+          {% endfor %}
           <table>
               <tr class="paire"><td><span class="champ">Nom : </span>         {{terrain.nom}}</td>
               </tr>
@@ -192,7 +197,12 @@
     
                 <tr class="impaire"><td><span class="champ">Nom d'agence : </span>         {{terrain.agence}}</td>
                 </tr>
-                <tr class="paire"><td><span class="champ">Note : </span>         XXXXXXXX</td>
+                <tr class="paire"><td><span class="champ">Note : </span>           {% if i == 0 %}
+                  --/5
+                  {% else %}
+                  
+                  {{  sumratings / terrain.notes|length }}/5
+                  {% endif %}</td>
                   </tr>
       
                   <tr class="impaire"> <td><span class="champ">Categorie : </span>         {{terrain.categorie}}</td>
