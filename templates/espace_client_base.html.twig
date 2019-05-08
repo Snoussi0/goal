@@ -42,7 +42,7 @@
         <li>
   
          
-            <img src="/images/icone/placeholder.svg" ><span>Votre Profile </span>
+            <img src="/images/photo/{{app.user.client.photo}}" ><span>Votre Profile </span>
      
           
           <ul>
@@ -63,7 +63,7 @@
               </li>
 
                 <li>
-                <a href="{{ path('espace_agence_modifier_photo')}}"><img src="/images/icone/user.svg" ><span> Photo De Profile </span>
+                <a href="{{ path('espace_client_modifier_photo')}}"><img src="/images/icone/user.svg" ><span> Photo De Profile </span>
                 </a>
             </li>
               
@@ -83,7 +83,7 @@
 
           <li>
     
-            <a href="#">
+            <a href="{{path('espace_client_nos_terrains')}}">
                 <img src="/images/icone/soccer-field.svg"><span> Les Terrains </span>
      
             </a>
@@ -201,6 +201,8 @@
 
     <script src="/jquery/jquery-3.2.1.min.js"></script>
     <script src="/js/main.js"></script>
+    
+    {% block javascript %}{% endblock %}
     
 </body>
 </html>

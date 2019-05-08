@@ -63,4 +63,99 @@ class EspaceClientController extends AbstractController
         }
 
     }
+
+
+    /**
+     * @Route("/espace_client/modifier_photo", name="espace_client_modifier_photo")
+     */
+    public function modifier_photo(Request $request)
+    {
+        if($request->isMethod('post'))
+        {
+            $client=$this->getUser()->getClient();
+
+            $file = $request->files->get('photo');
+            
+            $fileName = md5(uniqid()).'.'.$file->guessExtension();
+            $file->move($this->getParameter('upload_directory'),$fileName);
+            $client->setPhoto($fileName);
+
+            $this->getDoctrine()->getManager()->flush();   
+                
+                
+
+            return $this->render('espace_client/modifier_photo.html.twig',array('notification' => 'success','contenu'=>'modification terminée avec succès' ));
+          
+        }
+        else
+        {
+            return $this->render('espace_client/modifier_photo.html.twig', [
+                'controller_name' => 'EspaceAgenceController',
+            ]);
+        }
+       
+    }
+
+
+
+      /**
+     * @Route("/espace_client/nos_terrains", name="espace_client_nos_terrains")
+     */
+    public function nos_terrains(Request $request)
+    {
+        
+
+
+
+
+
+
+        if ($request->isMethod('post')) {
+            
+            $entityManager = $this->getDoctrine()->getManager();
+            $nom=$request->request->get('nom');
+            $categorie=$request->request->get('categorie');
+            $req='';
+            if($nom != NULL &&  $categorie!= NULL)
+            {
+            $req=" SELECT p FROM App\Entity\Terrain p WHERE  p.nom LIKE :nom AND p.categorie LIKE :categorie ";
+            $query = $entityManager->createQuery($req)->setParameters(array('nom'=> '%'.$nom.'%', 'categorie' => $categorie));
+            }
+            elseif($nom != NULL &&  $categorie== NULL)
+            {
+                $req=" SELECT p FROM App\Entity\Terrain p WHERE  p.nom LIKE :nom ";
+                $query = $entityManager->createQuery($req)->setParameters(array('nom'=> '%'.$nom.'%'));
+            }
+            
+            elseif($nom == NULL &&  $categorie!= NULL)
+            {
+                $req=" SELECT p FROM App\Entity\Terrain p WHERE  p.categorie LIKE :categorie ";
+                $query = $entityManager->createQuery($req)->setParameters(array('categorie' => $categorie));
+            }
+            else
+            {
+                
+                $req=" SELECT p FROM App\Entity\Terrain p  ";
+                $query = $entityManager->createQuery($req);
+            }
+
+
+
+            $terrain= $query->execute();
+        }
+        else
+        {
+            $repository = $this->getDoctrine()->getRepository(Terrain::class);
+            $terrain = $repository->findAll();
+        }
+
+
+        
+        
+        return $this->render('espace_client/nos_terrains.html.twig', [
+            'terrains' => $terrain,
+        ]);
+    }
+
+
 }

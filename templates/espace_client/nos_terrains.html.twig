@@ -1,4 +1,4 @@
-{% extends 'espace_public_base.html.twig' %}
+{% extends 'espace_client_base.html.twig' %}
 
 {% block title %} Nos Terrain{% endblock %}
 
@@ -77,7 +77,7 @@
 
 </article>
 <article>
-<form method='post' action="{{path('espace_public_nos_terrains')}}">
+<form method='post' action="{{path('espace_client_nos_terrains')}}">
 <div class="rechercheterrain">
 
 
@@ -207,7 +207,18 @@
             <button  class="connection_bouton">Réservation</button>
             </a>
           </div></center>
-        
+
+         <div id="rating_sys">
+
+
+          <span class="stars"><a href="{{path('espace_public_note',{'terrain': terrain.id, 'noteint': 1})}}" class="lienjs">&starf;</a></span>
+          <span class="stars"><a href="{{path('espace_public_note',{'terrain': terrain.id, 'noteint': 2})}}" class="lienjs">&starf;</a></span>
+          <span class="stars"><a href="{{path('espace_public_note',{'terrain': terrain.id, 'noteint': 3})}}" class="lienjs">&starf;</a></span>
+          <span class="stars"><a href="{{path('espace_public_note',{'terrain': terrain.id, 'noteint': 4})}}" class="lienjs">&starf;</a></span>
+          <span class="stars"><a href="{{path('espace_public_note',{'terrain': terrain.id, 'noteint': 5})}}" class="lienjs">&starf;</a></span>
+         </div>
+
+          
   
           </div>
         </div>
@@ -300,10 +311,9 @@
   function onClickStar(event)
   {
     event.preventDefault();
-
     const url=this.href;
-    
     axios.get(url).then(function(response){
+     // document.getElementById(`stade${reponse.data.idTerrin}`);
       console.log(response)});
   }
 
