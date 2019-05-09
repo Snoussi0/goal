@@ -351,13 +351,13 @@ class EspacePublicController extends AbstractController
         $user = $this->getUser();
         if($user->getRole()=="ROLE_CLIENT")
         {
-            return $this->redirectToRoute('espace_client');
+            return $this->redirectToRoute('espace_client_nos_terrains');
         }
         else
         {
             if($user->getRole()=="ROLE_AGENCE")
             {
-                return $this->redirectToRoute('espace_agence');
+                return $this->redirectToRoute('espace_agence_modifier_terrain');
             }
             else
             {
